@@ -83,6 +83,9 @@ class LineToSquareView (ctx : Context) : View(ctx) {
             val w : Float = canvas.width.toFloat()
             val h : Float = canvas.height.toFloat()
             val size : Float = Math.min(w,h)/3
+            paint.strokeWidth = Math.min(w, h)/50
+            paint.strokeCap = Paint.Cap.ROUND
+            paint.color = Color.parseColor("#009688")
             canvas.save()
             canvas.translate(w/2, h/2)
             for (i in 0..1) {
