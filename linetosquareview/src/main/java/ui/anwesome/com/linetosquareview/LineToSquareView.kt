@@ -4,6 +4,7 @@ package ui.anwesome.com.linetosquareview
  * Created by anweshmishra on 11/04/18.
  */
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.*
 import android.view.MotionEvent
@@ -132,6 +133,14 @@ class LineToSquareView (ctx : Context) : View(ctx) {
             lineToSquare.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : LineToSquareView {
+            val view : LineToSquareView = LineToSquareView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
