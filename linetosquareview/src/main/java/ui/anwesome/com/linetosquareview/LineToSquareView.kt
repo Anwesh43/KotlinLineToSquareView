@@ -77,4 +77,35 @@ class LineToSquareView (ctx : Context) : View(ctx) {
             }
         }
     }
+
+    data class LineToSquare(var i : Int, private val state : State = State()) {
+        fun draw(canvas : Canvas, paint : Paint) {
+            val w : Float = canvas.width.toFloat()
+            val h : Float = canvas.height.toFloat()
+            val size : Float = Math.min(w,h)/3
+            canvas.save()
+            canvas.translate(w/2, h/2)
+            for (i in 0..1) {
+                canvas.save()
+                canvas.translate(size * (1 - 2 * i)*this.state.scales[1], 0f)
+                for (j in 0..1) {
+                    canvas.save()
+                    canvas.translate(0f, size * (1 - 2 * i))
+                    canvas.rotate(-90f * this.state.scales[2])
+                    val updated_size : Float = (size) * this.state.scales[0]
+                    canvas.drawLine(0f, -updated_size, 0f, updated_size, paint)
+                    canvas.restore()
+                }
+                canvas.restore()
+            }
+            canvas.restore()
+        }
+
+        fun update(stopcb : (Float) -> Unit) {
+            state.update(stopcb)
+        }
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+    }
 }
