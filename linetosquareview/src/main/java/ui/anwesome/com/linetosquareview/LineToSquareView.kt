@@ -111,4 +111,27 @@ class LineToSquareView (ctx : Context) : View(ctx) {
             state.startUpdating(startcb)
         }
     }
+
+    data class Renderer(var view : LineToSquareView) {
+
+        private val lineToSquare : LineToSquare = LineToSquare(0)
+
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            lineToSquare.draw(canvas, paint)
+            animator.animate {
+                lineToSquare.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            lineToSquare.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
