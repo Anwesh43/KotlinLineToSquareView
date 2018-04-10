@@ -91,15 +91,15 @@ class LineToSquareView (ctx : Context) : View(ctx) {
             paint.color = Color.parseColor("#009688")
             canvas.save()
             canvas.translate(w/2, h/2)
-            for (i in 0..1) {
+            for (i in 0..(this.state.scales[0].toInt())) {
                 canvas.save()
                 canvas.translate(size * (1 - 2 * i)*this.state.scales[1], 0f)
-                for (j in 0..1) {
+                for (j in 0..(this.state.scales[1].toInt())) {
                     canvas.save()
                     canvas.translate(0f, size * (1 - 2 * i))
-                    canvas.rotate(-90f * this.state.scales[2])
-                    val updated_size : Float = (size) * this.state.scales[0]
-                    canvas.drawLine(0f, -updated_size, 0f, updated_size, paint)
+                    canvas.rotate(-90f * j * this.state.scales[2])
+                    val updated_size : Float = (2* size) * this.state.scales[0]
+                    canvas.drawLine(0f, 0f , 0f, -(updated_size * (1 - 2 * i)), paint)
                     canvas.restore()
                 }
                 canvas.restore()
